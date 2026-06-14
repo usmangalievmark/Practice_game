@@ -1,25 +1,27 @@
-from random import randint, choice
-from time import sleep
+from random import randint
 
 
 class Character:
     """Класс игрового персонажа"""
 
-    # Список игровых классов.
-    percs = ['Штурмовик', 'Снайпер', 'Оператор БПЛА', 'ВПшник', 'Копач']
-
-    def __init__(self, name):
+    # Присвоение характеристик персонажу
+    def __init__(
+        self,
+        name,
+        hp=None,
+        attack=None,
+        defense=None,
+        charisma=None,
+    ):
         self.name = name
-        self.perc = choice(Character.percs)
-        self.hp = randint(5, 10)
-        self.attack = randint(5, 10)
-        self.defense = randint(5, 10)
-        self.charisma = randint(1, 10)
+        self.hp = randint(5, 10) if hp is None else hp
+        self.attack = randint(5, 10) if attack is None else attack
+        self.defense = randint(5, 10) if defense is None else defense
+        self.charisma = randint(1, 10) if charisma is None else charisma
 
     def __str__(self):
         return (
             f'Имя: {self.name}\n'
-            f'Специальность: {self.perc}\n'
             f'Здоровье: {self.hp}\n'
             f'Урон: {self.attack}\n'
             f'Защита: {self.defense}\n'
@@ -36,18 +38,11 @@ class Character:
             f'Остаток здоровья: {opponent.hp}'
         )
 
+class Monster:
+    """Класс игровых монстров"""
 
-# Функция имитирует битву между игроков и противником.
-def battle(player, opponent):
-    print(f'{player.name} против {opponent.name}')
-    while opponent.hp > 0 and player.hp > 0:
-        player.basic_attack(opponent)
-        if opponent.hp <= 0:
-            print(f'{player.name} победил')
-            break
-        sleep(1)
-        opponent.basic_attack(player)
-        if player.hp <= 0:
-            print(f'{opponent.name} победил')
-            break
-        sleep(1)
+    def __init__(self, name):
+        self.name = name
+        self.hp = None
+        self.attack = None
+        self.defense = None
